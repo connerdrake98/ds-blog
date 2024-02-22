@@ -4,7 +4,7 @@
 title: Conner Drake's Data Science Blog
 description: "A blog for my data science articles." 
 author: Conner Drake
-author_description: "Byu Computer Science Student" 
+author_description: "BYU Computer Science Student" 
 
 url: https://connerdrake98.github.io ## change this to https://yourusername.github.io
 baseurl: /ds-blog ## change this to the name of your blog repository
