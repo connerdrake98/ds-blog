@@ -3,7 +3,7 @@ layout: post
 title:  "Discover Profitable Stock Strategies in Pyton"
 date: 2024-02-24
 description: This post will show you exactly how to use the yfinance library in Python to test any stock strategy you could imagine. Just follow the simple outlined steps, and you will be testing your strategies in no time. Who knows, maybe you could even find one that outperforms the market!
-image: "/assets/img/stocks-moving.jpg"
+image: "/assets/img/2024-02-24-title-image.png"
 display_image: false
 ---
 <p class="intro"><span class="dropcap">H</span>ave you ever tried to test stock strategies manually by looking at charts and indicators, writing down numbers, and then having to redo the entire process to test different inputs? Well, there is an easier way that will allow you to rapidly test tons of strategies in seconds.</p>
