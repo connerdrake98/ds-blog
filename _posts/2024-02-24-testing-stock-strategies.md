@@ -62,6 +62,8 @@ This code outputs some tabular price data. We are selecting the 'Close' column s
 
 <img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-tabular-data-2024-03.png" alt="AAPL Tabular Data.  The most recent entry as of the time of this post shows AAPL at a price of 179.66" style="width:90vw;"/>
 
+![Figure](https://connerdrake98.github.io//ds-blog/assets/img/aapl-tabular-data-2024-03.png)
+
 We can verify the accuracy of our call for data by comparing the most recent entry in the table returned by the program and looking at the most recent price of AAPL stock with a Google search.
 
 <img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-stock-search-2024-03-03.png" alt="A Google search for 'AAPL Stock' showing a matching most recent price of 179.66." style="width:90vw;"/>
