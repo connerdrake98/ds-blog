@@ -7,3 +7,5 @@ node_modules
 .jekyll-cache/*
 _vendor
 Gemfile.lock
+_posts/2014-12-15-example-post-formatting.markdown
+_posts/2024-02-05-create-post.md
