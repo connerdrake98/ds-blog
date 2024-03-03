@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Making Money... With Pyton? A Simple Way to Test Stock Strategies"
+title:  "Discover Profitable Stock Strategies in Pyton"
 date: 2024-02-24
 description: This post will show you exactly how to use the yfinance library in Python to test any stock strategy you could imagine. Just follow the simple outlined steps, and you will be testing your strategies in no time. Who knows, maybe you could even find one that outperforms the market!
 image: "/assets/img/stocks-moving.jpg"
@@ -123,28 +123,28 @@ As you can see, the object created by calling [ticker-object].history(period="[n
 
 Calling [ticker-object].history() returns a pandas DataFrame with many Columns containing data you can use to build and test a stock strategy. Here is a guide to each one:
 
-<h3>Date:</h3> 
+<h6>Date:</h6> 
 The Date feature indicates the date in which the stock price data corresponds to. It is in the format YYYY-MM-DD HH:MM:SS[+/- HH:MM UTC] with the last set of two-digit numbers represent the hours and minutes of offset from UTC time.
 
-<h3>Open</h3>
+<h6>Open</h6>
 The Open feature contains the price of the given stock at the beginning of the measured time interval. In this case, since yfinance provides access to daily stock data, the Open feature contains the price of the stock at the beginning of the day (at market open).
 
-<h3>High</h3>
+<h6>High</h6>
 The Close feature contains the highest price the given stock reahced during the measured time interval. In this case, it is the highest price the stock reached during the date (day) of the corresponding entry.
 
-<h3>Low</h3>
+<h6>Low</h6>
 The Low feature contains the lowest price the given stock fell to during the measureed time interval. In this case, it is the lowest price the stock reached during the date (day) of the corresponding entry.
 
-<h3>Close</h3>
+<h6>Close</h6>
 The close feature contains the price of the given stock at the end of the measured time interval, or in this case, the price at the end of the corresponding day (at market close).
 
-<h3>Volume</h3>
+<h6>Volume</h6>
 The volume feature contains the volume of shares of stock traded. This is the total amount of shares that exchanged ownership during that time period, or in this case, during the corresponding day indicated by the Date feature for the given stock.
 
-<h3>Dividends</h3>
+<h6>Dividends</h6>
 Indicates whether a dividend was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock.
 
-<h3>Stock Splits</h3>
+<h6>Stock Splits</h6>
 Indicates whether a stock split occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
  
 ### 5 - The Portfolio Management Code (Making the Trades)
