@@ -2,35 +2,216 @@
 layout: post
 title:  "How to Test Stock Strategies Easily in Python"
 date: 2024-02-24
-description: A post about how to use RapidAPI's EOD Historical Data API to test stock strategies
+description: A post about how to use the yfinance Python module to test stocks strategies
 image: "/assets/img/stocks-moving.jpg"
 display_image: false
 ---
 <p class="intro"><span class="dropcap">H</span>ave you ever tried to test stock strategies manually by looking at charts and indicators, writing down numbers, and then having to redo the entire process to test different inputs? Well, there is an easier way that will allow you to rapidly test tons of strategies in seconds.</p>
 
-### 1 - Connect to the API and Make Your First Request
+### 1 - Install the yfinance package
 
-In order to start getting stock data to work with, you first need to go to the [EOD Historical Data API on Rapid Tables](https://rapidapi.com/eod-historical-data-eod-historical-data-default/api/eod-historical-data) and generate some Python code under "Code Snippets." This will automatically generate an api key for you, which makes things fast!
+In order to start getting stock data to work with, you will need to use the yfinance python package.
 
-Go to Google Collaboratory or any other place where you can run your python code (Google Collaboratory makes it easier because you don't have to pip install packages, but if you feel comfortable configuring a virtual environment for your code to run in, any IDE should work).
+First, install the yfinance package using pip (or your preferred python package installer). Make sure to install it into the virtual environment that is assigned to the project you will be writing code in.
+
+{%- highlight python -%}
+$ pip install --upgrade "yfinance[repair]"
+{%- endhighlight -%}
+
+--upgrade upgrades any already installed packages to their latest versions, and [repair] installs the price repair dependency, which fixes some errors with fetching data from Yahoo's API such as missing data, missing volume, accidentally 100xing the price for some entries, etc.
+
+It is also recommended to install pandas, since the objects returned by yfinance are pandas DataFrames.
+
+{%- highlight python -%}
+$ pip install pandas
+{%- endhighlight -%}
+
+### 2 - Import the necessary packages
+
+After installing the required pacakages, open your favorite Python IDE, select the environment that has yfinance installed, and import them using:
+
+{%- highlight python -%}
+import yfinance as yf
+import pandas as pd # requests return pandas DataFrames, so it is useful to import pandas as well
+{%- endhighlight -%}
+
+### 3 - Make Your First yfinance Request For Historical Data
+
+Create a yfinance ticker object, which you can use to access ticker data.
+
+{%- highlight python -%}
+aapl = yf.Ticker('AAPL')
+{%- endhighlight -%}
+
+Once you have created the object, you can call .history(period="1mo") to get the last one month of daily ticker data.
+
+{%- highlight python -%}
+aapl_history = aapl.history(period="1mo")
+print(aapl_history)
+{%- endhighlight -%}
+
+A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
+
+A simple and easy way to space out your requests is to use time.sleep(n), with n being the number of seconds to sleep (I recommend 2 seconds between requests). You will not need to install the time library prior to import because it comes installed with Python already. See the example below for a one example of how you could pause the program in between requests.
+
+{%- highlight python -%}
+import time
+
+tickers = ['AAPL', 'MSFT', 'IBM']
+
+for i in range(0, len(tickers)):
+  ticker_obj = yf.Ticker(tickers[i])
+  ticker_hist = ticker_obj.history(period="1mo")
+  print(tickers[i])
+  print(ticker_his)
+
+  time.sleep(2)
+
+{%- endhighlight -%}
+
+This code may appear to get the "monthly" historical data for AAPL stock, but it actually gets the last 1 month of historical daily data. The yfinance API only works with daily stock metrics as to not overwhelm Yahoo Finance with requests. 
+
+When we print what aapl.history(period="1mo") returns, we get:
+
+{%- highlight python -%}
+                                 Open        High  ...  Dividends  Stock Splits
+Date                                               ...                         
+2024-02-02 00:00:00-05:00  179.630787  187.091269  ...       0.00           0.0
+2024-02-05 00:00:00-05:00  187.910213  189.008818  ...       0.00           0.0
+2024-02-06 00:00:00-05:00  186.621869  189.068743  ...       0.00           0.0
+2024-02-07 00:00:00-05:00  190.397053  190.806534  ...       0.00           0.0
+2024-02-08 00:00:00-05:00  189.148646  189.298448  ...       0.00           0.0
+2024-02-09 00:00:00-05:00  188.649994  189.990005  ...       0.24           0.0
+2024-02-12 00:00:00-05:00  188.419998  188.669998  ...       0.00           0.0
+2024-02-13 00:00:00-05:00  185.770004  186.210007  ...       0.00           0.0
+2024-02-14 00:00:00-05:00  185.320007  185.529999  ...       0.00           0.0
+2024-02-15 00:00:00-05:00  183.550003  184.490005  ...       0.00           0.0
+2024-02-16 00:00:00-05:00  183.419998  184.850006  ...       0.00           0.0
+2024-02-20 00:00:00-05:00  181.789993  182.429993  ...       0.00           0.0
+2024-02-21 00:00:00-05:00  181.940002  182.889999  ...       0.00           0.0
+2024-02-22 00:00:00-05:00  183.479996  184.960007  ...       0.00           0.0
+2024-02-23 00:00:00-05:00  185.009995  185.039993  ...       0.00           0.0
+2024-02-26 00:00:00-05:00  182.240005  182.759995  ...       0.00           0.0
+2024-02-27 00:00:00-05:00  181.100006  183.919998  ...       0.00           0.0
+2024-02-28 00:00:00-05:00  182.509995  183.119995  ...       0.00           0.0
+2024-02-29 00:00:00-05:00  181.270004  182.570007  ...       0.00           0.0
+2024-03-01 00:00:00-05:00  179.550003  180.529999  ...       0.00           0.0
+
+[20 rows x 7 columns]
+{%- endhighlight -%}
+
+As you can see, the object created by calling [ticker-object].history(period="[n months]mo") is a pandas DataFrame.
+
+### 4 - Features of the ticker.history-Returned DataFrame
+
+Calling [ticker-object].history() returns a pandas DataFrame with many Columns containing data you can use to build and test a stock strategy. Here is a guide to each one:
+
+<h3>Date:</h3> 
+The Date feature indicates the date in which the stock price data corresponds to. It is in the format YYYY-MM-DD HH:MM:SS[+/- HH:MM UTC] with the last set of two-digit numbers represent the hours and minutes of offset from UTC time.
+
+<h3>Open</h3>
+The Open feature contains the price of the given stock at the beginning of the measured time interval. In this case, since yfinance provides access to daily stock data, the Open feature contains the price of the stock at the beginning of the day (at market open).
+
+<h3>High</h3>
+The Close feature contains the highest price the given stock reahced during the measured time interval. In this case, it is the highest price the stock reached during the date (day) of the corresponding entry.
+
+<h3>Low</h3>
+The Low feature contains the lowest price the given stock fell to during the measureed time interval. In this case, it is the lowest price the stock reached during the date (day) of the corresponding entry.
+
+<h3>Close</h3>
+The close feature contains the price of the given stock at the end of the measured time interval, or in this case, the price at the end of the corresponding day (at market close).
+
+<h3>Volume</h3>
+The volume feature contains the volume of shares of stock traded. This is the total amount of shares that exchanged ownership during that time period, or in this case, during the corresponding day indicated by the Date feature for the given stock.
+
+<h3>Dividends</h3>
+Indicates whether a dividend was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock.
+
+<h3>Stock Splits</h3>
+Indicates whether a stock split occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
+ 
+### 5 - Building a Portfolio Management Function
+
+The goal of this function is to iterate through the days in the entries of a stock data DataFrame and make buying or selling decisions based on any provided criteria.
+
+The programmer should be able to set:
+-Number of months of data to test
+-Choice of stock to test
+-Initial portfolio size
+-Signal length (the number of price points needed to calculate relevant indicators and make a trading decision)
+-The buying/selling criteria (which will be a function that takes in the last n entries and makes a decision whether to buy or not)
+-The stop loss and take profit percentages
+
+To do this, we create a simple program that applies these settings to execute a strategy and report the trades taken and the resulting portfolio balance after a set amount of time.
+
+In this simple example, we will use one ticker, so we will not need to make multiple requests when running our python file, but if you would like to adapt the code to test multiple tickers, remember to use the time library to run time.sleep([num. seconds to sleep]) between requests to avoid timeouts and restrictions.
+
+Here is the program:
+
+{%- highlight python -%}
+import yfinance as yf
+import pandas as pd # requests return pandas DataFrames, so it is useful to import pandas as well
+
+'''---------------------------------------------------
+--   CUSTOMIZE THIS PART (YOUR DESIRED STRATEGY)     --
+----------------------------------------------------'''
+
+history_length_in_months = 12
+ticker_to_test = "MSFT"
+portfolio_equity = 10000
+stop_loss_percentage = 5
+take_profit_percentage = 10
+signal_length = 21 # test for crossover on 20sma
+def buy_on_sma_20_crossover(df_slice):
+    sma_20 = df_slice['Close'][:-1].mean()  # Use the first 20 prices
+    second_most_recent_close = df_slice['Close'].iloc[-2] # is < sma_20 in crossover
+    most_recent_close = df_slice['Close'].iloc[-1] # is > sma_20 in crossover
+
+    # return whether there is a crossover
+    return second_most_recent_close < sma_20 < most_recent_close
+
+'''---------------------------------------------------
+--    LEAVE THIS PART (IT TESTS YOUR STRATEGY)       --
+----------------------------------------------------'''
+
+ticker_obj = yf.Ticker(ticker_to_test)
+ticker_history = ticker_obj.history(period=f"{history_length_in_months}mo")
+ticker_history.reset_index(inplace=True)
+
+in_trade = False
+pnl = 0
+entry_price = 0
+trade_results = []
+
+saved_starting_equity = portfolio_equity
+
+for index, row in ticker_history.iterrows():
+    if index >= signal_length - 1:
+        if in_trade:
+            current_price = row['Close']
+            price_change_percentage = ((current_price - entry_price) / entry_price) * 100
+            pnl = price_change_percentage
+
+            if pnl <= -stop_loss_percentage or pnl >= take_profit_percentage:
+                portfolio_equity = portfolio_equity * ((100 + pnl) / 100)
+                print(f"Exit signal at index {index} on date {row['Date']}. Close price: {row['Close']}, PnL: {pnl}%. Equity: {portfolio_equity}")
+                # Assuming entire portfolio is used in trade at 1x leverage
+                in_trade = False
+                trade_results.append('Profit' if pnl > 0 else 'Loss')
+        else:
+            # Get a slice of the dataframe whose size matches the indicator length
+            df_slice = ticker_history.iloc[index - signal_length + 1: index + 1]
+            # Check for buy signal
+            if buy_on_sma_20_crossover(df_slice):
+                in_trade = True  # Enter trade
+                entry_price = row['Close']  # Mark the entry price for the trade
+                print(f"Buy signal at index {index} on date {row['Date']}. Close price: {row['Close']}. Equity: {portfolio_equity}")
+
+print(f"* Starting Equity: ${saved_starting_equity}")
+print(f"* Final Equity: ${portfolio_equity:.2f}")
+print(f"* Total Return (Percentage): {((portfolio_equity / saved_starting_equity) * 100 - 100): .2f}%")
+print(f"* Trades Taken: {len(trade_results)}")
+print(f"* Percent Profitability: {trade_results.count("Profit") / len(trade_results) * 100}")
 
 
-
-1. Create a new file in the `_posts` folder called `YYYY-MM-DD-post-name.md`, where YYYY is the year (2024), MM numeric month (01-12), and DD is the numeric day of the month (01-31).  The `post-name` is a short name for the new post with `-` between words.  **You must use this name convention for all new posts.**  
-
-2. Make the YML heading.  All pages in the site need to start with a YML heading.  For posts you should use the following header:
-```
----
-layout: post
-title:  "Post Name"
-description: Short yet informative description
-image: /assets/img/blog-image.jpg
----
-```
-*For this theme, the layout should stay as `post`.   All the other fields should be updated with the information for your particular blog post.*
-
-3. If you add an image to the header information, the top banner picture will change for this post.  You can also add an optional field `display_image: true` if you want to display a larger image just below the header image.  If this happens, the banner image will return to the default.
-  * The blog image should be a `.jpg` or `.png` file that can be found in `assets/img`.  Don't make it too large or the page will take longer to load (500-800 KB is a good size).  Leave the file path as `/assets/ing/` in the header area.* 
-  * Adding a post image will also display the image in the "next" or "previous" post location.
-
-4. Write the body of the blog using markdown.  There are a lot of references for markdown available.  I like the [Markdown Guide](https://www.markdownguide.org) because many of the examples show both the markdown and the html code.  There are separate pages for [basic syntax](https://www.markdownguide.org/basic-syntax/), [extended syntax](https://www.markdownguide.org/extended-syntax/), and a [cheatsheet](https://www.markdownguide.org/cheat-sheet/) for quick reference. 
+{%- endhighlight -%}
