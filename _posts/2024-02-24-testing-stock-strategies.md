@@ -215,7 +215,7 @@ for index, row in ticker_history.iterrows():
 
             if pnl <= -stop_loss_percentage or pnl >= take_profit_percentage:
                 portfolio_equity = portfolio_equity * ((100 + pnl) / 100)
-                print(f"Exit signal at index {index} on date {row['Date']}. Close price: {row['Close']}, PnL: {pnl}%. Equity: {portfolio_equity}")
+                print(f"   Exit signal at index {index} on date {row['Date']}. Close price: {row['Close']:.2f}, PnL: {pnl:.2f}%. Equity: {portfolio_equity:.2f}")
                 # Assuming entire portfolio is used in trade at 1x leverage
                 in_trade = False
                 trade_results.append('Profit' if pnl > 0 else 'Loss')
@@ -226,13 +226,12 @@ for index, row in ticker_history.iterrows():
             if buy_on_sma_20_crossover(df_slice):
                 in_trade = True  # Enter trade
                 entry_price = row['Close']  # Mark the entry price for the trade
-                print(f"Buy signal at index {index} on date {row['Date']}. Close price: {row['Close']}. Equity: {portfolio_equity}")
+                print(f"Buy signal at index {index} on date {row['Date']}. Close price: {row['Close']:.2f}. Equity: {portfolio_equity:.2f}")
 
-print(f"* Starting Equity: ${saved_starting_equity}")
+print(f"\n* Starting Equity: ${saved_starting_equity}")
 print(f"* Final Equity: ${portfolio_equity:.2f}")
 print(f"* Total Return (Percentage): {((portfolio_equity / saved_starting_equity) * 100 - 100): .2f}%")
 print(f"* Trades Taken: {len(trade_results)}")
-print(f"* Percent Profitability: {trade_results.count("Profit") / len(trade_results) * 100}")
 
 {%- endhighlight -%}
 
