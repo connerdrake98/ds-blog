@@ -156,12 +156,14 @@ Indicates whether a <a href='https://www.investopedia.com/terms/s/stocksplit.asp
 The goal of this function is to iterate through the days in the entries of a stock data DataFrame and make buying or selling decisions based on any provided criteria.
 
 The programmer should be able to set:
--Number of months of data to test
--Choice of stock to test
--Initial portfolio size
--Signal length (the number of price points needed to calculate relevant indicators and make a trading decision)
--The buying/selling criteria (which will be a function that takes in the last n entries and makes a decision whether to buy or not)
--The stop loss and take profit percentages
+<ol>
+    <li>Number of months of data to test</li>
+    <li>Choice of stock to test</li>
+    <li>Initial portfolio size</li>
+    <li>Signal length (the number of price points needed to calculate relevant indicators and make a trading decision)</li>
+    <li>The buying/selling criteria (which will be a function that takes in the last n entries and makes a decision whether to buy or not)</li>
+    <li>The stop loss and take profit percentages</li>
+</ol>
 
 To do this, we create a simple program that applies these settings to execute a strategy and report the trades taken and the resulting portfolio balance after a set amount of time.
 
