@@ -1,12 +1,18 @@
 ---
 layout: post
-title:  "How to Test Stock Strategies Easily in Python"
+title:  "Making Money... With Pyton? A Simple Way to Test Stock Strategies"
 date: 2024-02-24
-description: A post about how to use the yfinance Python module to test stocks strategies
+description: This post will show you exactly how to use the yfinance library in Python to test any stock strategy you could imagine. Just follow the simple outlined steps, and you will be testing your strategies in no time. Who knows, maybe you could even find one that outperforms the market!
 image: "/assets/img/stocks-moving.jpg"
 display_image: false
 ---
 <p class="intro"><span class="dropcap">H</span>ave you ever tried to test stock strategies manually by looking at charts and indicators, writing down numbers, and then having to redo the entire process to test different inputs? Well, there is an easier way that will allow you to rapidly test tons of strategies in seconds.</p>
+
+### Introduction
+
+There are TONS of tools and APIs that claim to have free stock data or allow you to test stock strategies easily. The truth? Most of these APIs are either paid or out of support. 
+
+This is why I scoured the internet to find a solution that was both free and easy to use for testing stock strategies. Here it is.
 
 ### 1 - Install the yfinance package
 
@@ -26,7 +32,7 @@ It is also recommended to install pandas, since the objects returned by yfinance
 $ pip install pandas
 {%- endhighlight -%}
 
-### 2 - Import the necessary packages
+### 2 - Import the Necessary Packages in Your Code
 
 After installing the required pacakages, open your favorite Python IDE, select the environment that has yfinance installed, and import them using:
 
@@ -45,25 +51,36 @@ aapl = yf.Ticker('AAPL')
 
 Once you have created the object, you can call .history(period="1mo") to get the last one month of daily ticker data.
 
+<h3>Code For Getting Historical Data</h3>
+
 {%- highlight python -%}
 aapl_history = aapl.history(period="1mo")
-print(aapl_history)
+print(aapl_history['Close'])
 {%- endhighlight -%}
+
+This code outputs some tabular price data. We are selecting the 'Close' column since this is the price measured at the end of each trading day (each day when the markets are open).
+
+<img src='assets/img/aapl-tabular-data-2024-03.png', alt='AAPL tabular data. The most recent entry as of the time of this post shows AAPL at a price of 179.66.'>
 
 A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
 
 A simple and easy way to space out your requests is to use time.sleep(n), with n being the number of seconds to sleep (I recommend 2 seconds between requests). You will not need to install the time library prior to import because it comes installed with Python already. See the example below for a one example of how you could pause the program in between requests.
+
+<h3>Getting Data From Multiple Stocks</h3>
 
 {%- highlight python -%}
 import time
 
 tickers = ['AAPL', 'MSFT', 'IBM']
 
+hist_data_frames = []
+
 for i in range(0, len(tickers)):
   ticker_obj = yf.Ticker(tickers[i])
   ticker_hist = ticker_obj.history(period="1mo")
   print(tickers[i])
   print(ticker_his)
+  hist_data_frames.append(ticker_his)
 
   time.sleep(2)
 
@@ -102,7 +119,7 @@ Date                                               ...
 
 As you can see, the object created by calling [ticker-object].history(period="[n months]mo") is a pandas DataFrame.
 
-### 4 - Features of the ticker.history-Returned DataFrame
+### 4 - Features of the Price Data DataFrame
 
 Calling [ticker-object].history() returns a pandas DataFrame with many Columns containing data you can use to build and test a stock strategy. Here is a guide to each one:
 
@@ -130,7 +147,7 @@ Indicates whether a dividend was paid out (and how much was paid out per share).
 <h3>Stock Splits</h3>
 Indicates whether a stock split occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
  
-### 5 - Building a Portfolio Management Function
+### 5 - The Portfolio Management Code (Making the Trades)
 
 The goal of this function is to iterate through the days in the entries of a stock data DataFrame and make buying or selling decisions based on any provided criteria.
 
@@ -146,7 +163,7 @@ To do this, we create a simple program that applies these settings to execute a 
 
 In this simple example, we will use one ticker, so we will not need to make multiple requests when running our python file, but if you would like to adapt the code to test multiple tickers, remember to use the time library to run time.sleep([num. seconds to sleep]) between requests to avoid timeouts and restrictions.
 
-Here is the program:
+<h3>Full Code</h3>
 
 {%- highlight python -%}
 import yfinance as yf
@@ -215,3 +232,5 @@ print(f"* Percent Profitability: {trade_results.count("Profit") / len(trade_resu
 
 
 {%- endhighlight -%}
+
+This program iterates through the price entries of the chosen stock and initiates a trade if the criteria you set in the previous section of the program is met. It then keeps track of the change in price until the price hits your stop loss or take profit, then closes the trade and updates your portfolio balance. It continues to do this for all of the price data provided whose length is dependent on your provided number of months of data to iterate through as selected in the previous step.
