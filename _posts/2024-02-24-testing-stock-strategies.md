@@ -62,6 +62,9 @@ This code outputs some tabular price data. We are selecting the 'Close' column s
 
 <img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-tabular-data-2024-03.png" alt="AAPL Tabular Data.  The most recent entry as of the time of this post shows AAPL at a price of 179.66" style="width:70vw;"/>
 
+We can verify the accuracy of our call for data by comparing the most recent entry in the table returned by the program and looking at the most recent price of AAPL stock with a Google search.
+
+<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-stock-search-2024-03-03.png" alt="A Google search for 'AAPL Stock' showing a matching most recent price of 179.66." style="width:70vw;"/>
 
 A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
 
@@ -231,7 +234,16 @@ print(f"* Total Return (Percentage): {((portfolio_equity / saved_starting_equity
 print(f"* Trades Taken: {len(trade_results)}")
 print(f"* Percent Profitability: {trade_results.count("Profit") / len(trade_results) * 100}")
 
-
 {%- endhighlight -%}
 
 This program iterates through the price entries of the chosen stock and initiates a trade if the criteria you set in the previous section of the program is met. It then keeps track of the change in price until the price hits your stop loss or take profit, then closes the trade and updates your portfolio balance. It continues to do this for all of the price data provided whose length is dependent on your provided number of months of data to iterate through as selected in the previous step.
+
+Here are the trades taken and the results for 12 months of Microsoft's (MSFT) stock data:
+
+<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-trading-results.png" alt="The SMA-20 strategy for trading MSFT yields a profit of 27.74% over the last 12 months over 4 trades." style="width:70vw;"/>
+
+As you can see from this daily chart of MSFT's stock price with an added SMA-20, the trades were correctly executed when the price of MSFT stock crosses above the 20-Simple-Moving-Average.
+
+<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-strategy-chart.png" alt="The trades in the SMA-20 strategy for trading MSFT as shown on a TradingView chart" style="width:70vw;"/>
+
+I hope you find this post helpful and wish you luck in testing your own stock strategies.
