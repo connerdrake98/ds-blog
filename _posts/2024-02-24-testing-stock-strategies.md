@@ -68,7 +68,7 @@ We can verify the accuracy of our call for data by comparing the most recent ent
 
 A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
 
-A simple and easy way to space out your requests is to use time.sleep(n), with n being the number of seconds to sleep (I recommend 2 seconds between requests). You will not need to install the time library prior to import because it comes installed with Python already. See the example below for a one example of how you could pause the program in between requests.
+A simple and easy way to space out your requests is to use time.sleep(n), with n being the number of seconds to sleep (I recommend 2 seconds between requests). You will not need to install the time library prior to import because it comes installed with Python already. See the example below for how you could pause the program in between requests.
 
 <h3>Getting Data From Multiple Stocks</h3>
 
