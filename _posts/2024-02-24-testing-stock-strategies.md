@@ -97,7 +97,7 @@ This code may appear to get the "monthly" historical data for AAPL stock, but it
 When we print what aapl.history(period="1mo") returns, we get:
 
 {%- highlight python -%}
-                                 Open        High  ...  Dividends  Stock Splits
+-                                Open        High  ...  Dividends  Stock Splits
 Date                                               ...                         
 2024-02-02 00:00:00-05:00  179.630787  187.091269  ...       0.00           0.0
 2024-02-05 00:00:00-05:00  187.910213  189.008818  ...       0.00           0.0
