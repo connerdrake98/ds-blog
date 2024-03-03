@@ -60,7 +60,8 @@ print(aapl_history['Close'])
 
 This code outputs some tabular price data. We are selecting the 'Close' column since this is the price measured at the end of each trading day (each day when the markets are open).
 
-<img src='assets/img/aapl-tabular-data-2024-03.png', alt='AAPL tabular data. The most recent entry as of the time of this post shows AAPL at a price of 179.66.'>
+<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-tabular-data-2024-03.png" alt="AAPL Tabular Data.  The most recent entry as of the time of this post shows AAPL at a price of 179.66" style="width:70vw;"/>
+
 
 A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
 
