@@ -12,21 +12,21 @@ display_image: false
 
 There are TONS of tools and APIs that claim to have free stock data or allow you to test stock strategies easily. The truth? Most of these APIs are either paid or out of support. 
 
-This is why I scoured the internet to find a solution that was both free and easy to use for testing stock strategies. Here it is.
+This is why I scoured the internet to find a solution that was both free and easy to use for testing stock strategies. <a href='https://pypi.org/project/yfinance/#smarter-scraping'>Here it is.</a>
 
 ### 1 - Install the yfinance package
 
 In order to start getting stock data to work with, you will need to use the yfinance python package.
 
-First, install the yfinance package using pip (or your preferred python package installer). Make sure to install it into the virtual environment that is assigned to the project you will be writing code in.
+First, install the yfinance package using <a href='https://pypi.org/project/pip/'>pip</a> (or your preferred python package installer). Make sure to install it into the virtual environment that is assigned to the project you will be writing code in.
 
 {%- highlight python -%}
 $ pip install --upgrade "yfinance[repair]"
 {%- endhighlight -%}
 
---upgrade upgrades any already installed packages to their latest versions, and [repair] installs the price repair dependency, which fixes some errors with fetching data from Yahoo's API such as missing data, missing volume, accidentally 100xing the price for some entries, etc.
+<a href='https://pip.pypa.io/en/stable/development/architecture/upgrade-options/'>--upgrade</a> upgrades any already installed packages to their latest versions, and [repair] installs the price repair dependency, which fixes some errors with fetching data from Yahoo's API such as missing data, missing volume, accidentally 100xing the price for some entries, etc.
 
-It is also recommended to install pandas, since the objects returned by yfinance are pandas DataFrames.
+It is also recommended to install pandas, since the objects returned by yfinance are <a href='https://pandas.pydata.org/pandas-docs/version/2.1/reference/api/pandas.DataFrame.html'>pandas DataFrames.</a>
 
 {%- highlight python -%}
 $ pip install pandas
@@ -34,7 +34,7 @@ $ pip install pandas
 
 ### 2 - Import the Necessary Packages in Your Code
 
-After installing the required pacakages, open your favorite Python IDE, select the environment that has yfinance installed, and import them using:
+After installing the required pacakages, open your favorite <a href='https://hackr.io/blog/best-python-ide'>Python IDE</a>, select the environment that has yfinance installed, and import them using:
 
 {%- highlight python -%}
 import yfinance as yf
@@ -143,13 +143,13 @@ The Low feature contains the lowest price the given stock fell to during the mea
 The close feature contains the price of the given stock at the end of the measured time interval, or in this case, the price at the end of the corresponding day (at market close).
 
 <h6>Volume</h6>
-The volume feature contains the volume of shares of stock traded. This is the total amount of shares that exchanged ownership during that time period, or in this case, during the corresponding day indicated by the Date feature for the given stock.
+The <a href='https://www.investopedia.com/terms/v/volume.asp'>volume</a> feature contains the volume of shares of stock traded. This is the total amount of shares that exchanged ownership during that time period, or in this case, during the corresponding day indicated by the Date feature for the given stock.
 
 <h6>Dividends</h6>
-Indicates whether a dividend was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock.
+Indicates whether a <a href='https://www.investopedia.com/terms/d/dividend.asp'>dividend</a> was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock. Stock prices often move before, during, and/or after divident payouts, so some stock trading strategies revolve around predicting these movements.
 
 <h6>Stock Splits</h6>
-Indicates whether a stock split occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
+Indicates whether a <a href='https://www.investopedia.com/terms/s/stocksplit.asp'>stock split</a> occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
  
 ### 5 - The Portfolio Management Code (Making the Trades)
 
@@ -245,4 +245,10 @@ As you can see from this daily chart of MSFT's stock price with an added SMA-20,
 
 <img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-strategy-chart.png" alt="The trades in the SMA-20 strategy for trading MSFT as shown on a TradingView chart" style="width:70vw;"/>
 
-I hope you find this post helpful and wish you luck in testing your own stock strategies.
+There is also some example code available in the <a href='https://github.com/ranaroussi/yfinance'>readme of the yfinance github repo</a>, but note that the featured code for caching and request limiting uses out-of-date and out-of-support packages and will not work if you just copy and paste it.
+
+### 5 - Conclusion
+
+The yfinance Python library is by far the best free resource for testing stock strategies. If you use the code featured in this blog post, you can get up and running in testing your own strategies in as little as five minutes.
+
+What will you do with yfinance? Find the next market-beating trading strategy? Beat the returns in your managed 401k? Who knows what profitable strategies you could find. I would love to see what kinds of results you can get!
