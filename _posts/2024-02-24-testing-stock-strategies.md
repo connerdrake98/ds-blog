@@ -60,10 +60,6 @@ print(aapl_history['Close'])
 
 This code outputs some tabular price data. We are selecting the 'Close' column since this is the price measured at the end of each trading day (each day when the markets are open).
 
-<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-tabular-data-2024-03.png" alt="AAPL Tabular Data.  The most recent entry as of the time of this post shows AAPL at a price of 179.66" style="width:90vw;"/>
-
-![Figure](https://connerdrake98.github.io//ds-blog/assets/img/aapl-tabular-data-2024-03.png)
-
 <figure>
 	<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-tabular-data-2024-03.png" alt=""> 
 	<figcaption>AAPl tabular stock price data output</figcaption>
@@ -71,9 +67,12 @@ This code outputs some tabular price data. We are selecting the 'Close' column s
 
 We can verify the accuracy of our call for data by comparing the most recent entry in the table returned by the program and looking at the most recent price of AAPL stock with a Google search.
 
-<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-stock-search-2024-03-03.png" alt="A Google search for 'AAPL Stock' showing a matching most recent price of 179.66." style="width:90vw;"/>
+<figure>
+	<img src="https://connerdrake98.github.io/ds-blog/assets/img/aapl-stock-search-2024-03-03.png" alt=""> 
+	<figcaption>A Google search for 'AAPL Stock' showing a matching most recent price of 179.66.</figcaption>
+</figure>
 
-A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests. 
+A word of warning - if you make a lot of requests in quick succession in your code, Yahoo Finance may start to limit the amount of requests you make or even block you from making additional requests.
 
 A simple and easy way to space out your requests is to use time.sleep(n), with n being the number of seconds to sleep (I recommend 2 seconds between requests). You will not need to install the time library prior to import because it comes installed with Python already. See the example below for how you could pause the program in between requests.
 
@@ -248,11 +247,17 @@ This program iterates through the price entries of the chosen stock and initiate
 
 Here are the trades taken and the results for 12 months of Microsoft's (MSFT) stock data:
 
-<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-trading-results.png" alt="The SMA-20 strategy for trading MSFT yields a profit of 27.74% over the last 12 months over 4 trades." style="width:90vw;"/>
+<figure>
+	<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-trading-results.png" alt=""> 
+	<figcaption>The SMA-20 strategy for trading MSFT yields a profit of 27.74% over the last 12 months over 4 trades.</figcaption>
+</figure>
 
 As you can see from this daily chart of MSFT's stock price with an added SMA-20, the trades were correctly executed when the price of MSFT stock crosses above the 20-Simple-Moving-Average.
 
-<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-strategy-chart.png" alt="The trades in the SMA-20 strategy for trading MSFT as shown on a TradingView chart" style="width:90vw;"/>
+<figure>
+	<img src="https://connerdrake98.github.io/ds-blog/assets/img/msft-sma-20-strategy-chart.png" alt=""> 
+	<figcaption>The trades in the SMA-20 strategy for trading MSFT as shown on a TradingView chart</figcaption>
+</figure>
 
 There is also some example code available in the <a href='https://github.com/ranaroussi/yfinance'>readme of the yfinance github repo</a>, but note that the featured code for caching and request limiting uses out-of-date and out-of-support packages and will not work if you just copy and paste it.
 
