@@ -155,7 +155,10 @@ The <a href='https://www.investopedia.com/terms/v/volume.asp'>volume</a> feature
 Indicates whether a <a href='https://www.investopedia.com/terms/d/dividend.asp'>dividend</a> was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock. Stock prices often move before, during, and/or after divident payouts, so some stock trading strategies revolve around predicting these movements.
 
 <h6>Stock Splits</h6>
-Indicates whether a <a href='https://www.investopedia.com/terms/s/stocksplit.asp'>stock split</a> occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper, but the price values before the stock-split date would be adjusted to one-third of their value to compensate for the stock split and allow the data to remain smooth over time without sudden jumps in price that do not indicate jumps in overall value of the stock.
+Indicates whether a <a href='https://www.investopedia.com/terms/s/stocksplit.asp'>stock split</a> occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. 
+
+<h6>Stock Split Example</h6>
+For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner of stock now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper on the stock split date, but the price values before the stock-split date would be adjusted to one-third of their value to ensure smooth price data.
  
 ### 5 - The Portfolio Management Code (Making the Trades)
 
