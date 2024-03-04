@@ -16,8 +16,6 @@ This is why I scoured the internet to find a solution that was both free and eas
 
 ### 1 - Install the yfinance package
 
-In order to start getting stock data to work with, you will need to use the yfinance python package.
-
 First, install the yfinance package using <a href='https://pypi.org/project/pip/'>pip</a> (or your preferred python package installer). Make sure to install it into the virtual environment that is assigned to the project you will be writing code in.
 
 {%- highlight python -%}
