@@ -133,31 +133,31 @@ As you can see, the object created by calling [ticker-object].history(period="[n
 
 Calling [ticker-object].history() returns a pandas DataFrame with many Columns containing data you can use to build and test a stock strategy. Here is a guide to each one:
 
-<h6>Date:</h6> 
+<h4>Date:</h4> 
 The Date feature indicates the date in which the stock price data corresponds to. It is in the format YYYY-MM-DD HH:MM:SS[+/- HH:MM UTC] with the last set of two-digit numbers represent the hours and minutes of offset from UTC time.
 
-<h6>Open</h6>
+<h4>Open</h4>
 The Open feature contains the price of the given stock at the beginning of the measured time interval. In this case, since yfinance provides access to daily stock data, the Open feature contains the price of the stock at the beginning of the day (at market open).
 
-<h6>High</h6>
+<h4>High</h4>
 The Close feature contains the highest price the given stock reahced during the measured time interval. In this case, it is the highest price the stock reached during the date (day) of the corresponding entry.
 
-<h6>Low</h6>
+<h4>Low</h4>
 The Low feature contains the lowest price the given stock fell to during the measureed time interval. In this case, it is the lowest price the stock reached during the date (day) of the corresponding entry.
 
-<h6>Close</h6>
+<h4>Close</h4>
 The close feature contains the price of the given stock at the end of the measured time interval, or in this case, the price at the end of the corresponding day (at market close).
 
-<h6>Volume</h6>
+<h4>Volume</h4>
 The <a href='https://www.investopedia.com/terms/v/volume.asp'>volume</a> feature contains the volume of shares of stock traded. This is the total amount of shares that exchanged ownership during that time period, or in this case, during the corresponding day indicated by the Date feature for the given stock.
 
-<h6>Dividends</h6>
+<h4>Dividends</h4>
 Indicates whether a <a href='https://www.investopedia.com/terms/d/dividend.asp'>dividend</a> was paid out (and how much was paid out per share). If the value is something other than 0, this indicates that a dividend equal to that value (per share) was paid out to owners of the stock. Stock prices often move before, during, and/or after divident payouts, so some stock trading strategies revolve around predicting these movements.
 
-<h6>Stock Splits</h6>
+<h4>Stock Splits</h4>
 Indicates whether a <a href='https://www.investopedia.com/terms/s/stocksplit.asp'>stock split</a> occurred, with 0 indicating no stock split and a number other than 0 indicating that a stock split occurred that multiplied the number of shares in circulation by the given number. 
 
-<h6>Stock Split Example</h6>
+<h4>Stock Split Example</h4>
 For example, if the "Stock Splits" feature had a value of 3, this would indicate that the number of shares were multiplied by 3 (and would be three times cheaper, with each owner of stock now owning 3x as many shares). The yfinance app automatically backwards-adjusts prices to compensate for stock splits. So in this case, the price would not suddenly change to three times cheaper on the stock split date, but the price values before the stock-split date would be adjusted to one-third of their value to ensure smooth price data.
  
 ### 5 - The Portfolio Management Code (Making the Trades)
