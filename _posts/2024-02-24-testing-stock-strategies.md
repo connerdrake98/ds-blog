@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Discover Profitable Stock Strategies in Pyton"
+title:  "Discover Profitable Stock Strategies in Python"
 date: 2024-02-24
 description: This post will show you exactly how to use the yfinance library in Python to test any stock strategy you could imagine. Just follow the simple outlined steps, and you will be testing your strategies in no time. Who knows, maybe you could even find one that outperforms the market!
 image: "/assets/img/2024-02-24-title-image.png"
